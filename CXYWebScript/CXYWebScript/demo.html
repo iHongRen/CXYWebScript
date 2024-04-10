@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>H5与App交互</title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    </head>
+    <style>
+        button {
+            font-size: 16px;
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+
+        #text {
+            font-size: 16px;
+            margin: 20px;
+            word-break: break-all;
+        }
+    </style>
+    <body>
+        <h1>H5与App交互</h1>
+        <button id="btn1" type="button" onclick="onBtn1Click()">能获取返回值</button>
+        <button id="btn2" type="button" onclick="onBtn2Click()">传多参数</button>
+        <button id="btn3" type="button" onclick="onBtn3Click()">直接传对象</button>
+        <button id="btn4" type="button" onclick="onBtn4Click()">打开新页面</button>
+
+        <p id="text"></p>
+        <script>
+            // 能够接收来自 App端的返回值
+            function onBtn1Click() {
+                if (window.App) {
+                    // 接收App端的返回值
+                    const ret = window.App.onSayHello('Hello')
+                    configText(ret)
+                }
+            }
+
+            // 传递多个参数给 App端
+            function onBtn2Click() {
+                const imgs = ['https://www.baidu.com/img/1.png', 'https://www.baidu.com/img/2.png', 'https://www.baidu.com/img/3.png']
+                window.App?.onPreviewImages(imgs, 1)
+                configText(JSON.stringify(imgs) + ', 1')
+            }
+
+            // 直接传js对象给 App端
+            function onBtn3Click() {
+                const obj = {
+                    title: '标题',
+                    content: '内容',
+                    url: 'https://apple.com/'
+                }
+                window.App?.onShareObj(obj)
+                configText(JSON.stringify(obj))
+            }
+
+            // 直接传url，让App根据路由做跳转
+            function onBtn4Click() {
+                const url = 'https://cxy.com?page=detail&id=1'
+                window.App?.onJumpToPage(url)
+                configText(JSON.stringify(url))
+            }
+
+            // App 端调用此方法，修改body背景
+            function onChangeTheme(theme) {
+                document.body.style.backgroundColor = theme
+                configText(theme)
+                return '修改成功' // 返回一个字符串给App端
+            }
+
+            function configText(text) {
+                document.getElementById('text').innerHTML = text
+            }
+        </script>
+    </body>
+</html>

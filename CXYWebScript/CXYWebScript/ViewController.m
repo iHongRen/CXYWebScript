@@ -1,0 +1,138 @@
+//
+//  ViewController.m
+//  CXYWebScriptManager
+//
+//  Created by cxy on 2024/4/9.
+//
+
+#import "ViewController.h"
+#import "CXYWebScript.h"
+#import "DetailViewController.h"
+
+@interface ViewController ()<WKUIDelegate>
+@property (weak, nonatomic) IBOutlet WKWebView *webView;
+@property (nonatomic, strong) CXYWebScript *webScript;
+@property (nonatomic, copy) NSString *bl;
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self configWebView];
+}
+
+- (void)dealloc {
+    [self.webScript removeScripts];
+}
+
+- (void)configWebView {
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"demo" withExtension:@"html"];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
+    
+    if (@available(iOS 16.4, *)) {
+        self.webView.inspectable = YES;
+    }
+    
+    [self setupWebScript];
+}
+
+- (void)setupWebScript {
+    self.webScript = [[CXYWebScript alloc] initWithWebView:self.webView];
+    [self.webScript useUIDelegate];
+
+    /** 自定义injectName: CXY，那么 JS调用时就是 window.CXY.onSayHello('Hello') */
+     //self.webScript = [[CXYWebScript alloc] initWithWebView:self.webView injectName:@"CXY"];
+
+    /** 如果不使用[self.webScript useUIDelegate]; 就要自己实现UIDelegate代理
+     //self.webView.UIDelegate = self;
+
+     - (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString * _Nullable))completionHandler {
+         
+         [self.webScript runJavaScriptPrompt:prompt
+                       defaultText:defaultText
+                 completionHandler:completionHandler];
+     }
+     */
+    
+    /* 添加与H5交互的方法 */
+    // 使用 target-action 方式
+    [self.webScript addTarget:self
+                       jsFunc:@"onSayHello"
+                        ocSel:@selector(onSayHello:)];
+    
+    // 使用 block 方式，
+    // 如果 target-action 和 block 添加了相同的 jsFunc ，则只执行 block 方式的
+    [self.webScript addJsFunc:@"onSayHello" block:^NSString * _Nullable(NSArray *args) {
+        NSLog(@"args: %@", args);
+        return @"只支持返回字符串或nil，如何需要返回其他类型，可先将其转为JSON字符串再返回";
+    }];
+    
+    [self.webScript addTarget:self
+                       jsFunc:@"onPreviewImages"
+                        ocSel:@selector(onPreviewImages:currentIndex:)];
+    
+    [self.webScript addTarget:self
+                       jsFunc:@"onShareObj"
+                        ocSel:@selector(onShareObject:)];
+    
+    [self.webScript addTarget:self
+                       jsFunc:@"onJumpToPage"
+                        ocSel:@selector(onJumpToPage:)];
+    
+}
+
+- (NSString*)onSayHello:(NSString*)param {
+    NSLog(@"param: %@", param);
+    return @"只支持返回字符串或nil，如何需要返回其他类型，可先将其转为JSON字符串再返回";
+}
+
+- (void)onPreviewImages:(NSArray*)images currentIndex:(NSString*)currentIndex {
+    NSLog(@"images: %@", images);
+    NSLog(@"content: %@", currentIndex);
+}
+
+- (void)onShareObject:(id)obj {
+    NSLog(@"obj-class: %@", [obj class]); //__NSDictionaryI
+    NSLog(@"obj: %@", obj);
+}
+
+- (void)onJumpToPage:(NSString*)url {
+    // page=xxx, 你可以解析url，跳转到指定页面
+    DetailViewController *c = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailViewController"];
+    [self.navigationController pushViewController:c animated:YES];
+}
+
+// 缩放字体
+- (IBAction)onScaleFontClick:(UIButton*)sender {
+    sender.selected = !sender.isSelected;
+    CGFloat scale = sender.selected ? 100*1.3 : 100;
+    
+    NSString *textJS = [NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust='%@%%'",@(scale)];
+    [self.webScript evaluateJavaScript:textJS completionHandler:^(id result, NSError * _Nullable error) {
+        NSLog(@"result: %@", result);
+    }];
+}
+
+// 修改body背景色
+- (IBAction)onChangeBgColor:(id)sender {
+    // 生成随机的16进制颜色值
+    NSString *hexColor = [NSString stringWithFormat:@"#%06X", arc4random_uniform(0xFFFFFF)];
+    NSString *js = [NSString stringWithFormat:@"onChangeTheme(\"%@\")",hexColor];
+    [self.webScript evaluateJavaScript:js completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        NSLog(@"result: %@", result); //'修改成功'
+    }];
+}
+
+- (IBAction)onReload:(id)sender {
+    [self.webView reload];
+}
+
+//#pragma mark - WKUIDelegate
+//- (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString * _Nullable))completionHandler {
+//    
+//    [self.webScript runJavaScriptPrompt:prompt
+//                  defaultText:defaultText
+//            completionHandler:completionHandler];
+//}
+@end

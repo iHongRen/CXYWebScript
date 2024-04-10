@@ -1,0 +1,410 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8080C9912BC51730008408FB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8080C9902BC51730008408FB /* AppDelegate.m */; };
+		8080C9942BC51730008408FB /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8080C9932BC51730008408FB /* SceneDelegate.m */; };
+		8080C9972BC51730008408FB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8080C9962BC51730008408FB /* ViewController.m */; };
+		8080C99A2BC51730008408FB /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 8080C9992BC51730008408FB /* Base */; };
+		8080C99C2BC51732008408FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8080C99B2BC51732008408FB /* Assets.xcassets */; };
+		8080C99F2BC51732008408FB /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 8080C99E2BC51732008408FB /* Base */; };
+		8080C9A22BC51732008408FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8080C9A12BC51732008408FB /* main.m */; };
+		8080C9AA2BC5193C008408FB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8080C9A92BC5193C008408FB /* WebKit.framework */; };
+		8080C9AC2BC51B12008408FB /* demo.html in Resources */ = {isa = PBXBuildFile; fileRef = 8080C9AB2BC51B12008408FB /* demo.html */; };
+		80B2C4642BC54A5800003136 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 80B2C4632BC54A5800003136 /* DetailViewController.m */; };
+		80E48FDA2BC51F21000B67E2 /* CXYWebScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 80E48FD92BC51F21000B67E2 /* CXYWebScript.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8080C98C2BC51730008408FB /* CXYWebScript.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CXYWebScript.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8080C98F2BC51730008408FB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		8080C9902BC51730008408FB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8080C9922BC51730008408FB /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		8080C9932BC51730008408FB /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		8080C9952BC51730008408FB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		8080C9962BC51730008408FB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		8080C9992BC51730008408FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8080C99B2BC51732008408FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8080C99E2BC51732008408FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8080C9A02BC51732008408FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8080C9A12BC51732008408FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8080C9A92BC5193C008408FB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		8080C9AB2BC51B12008408FB /* demo.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = demo.html; sourceTree = "<group>"; };
+		80B2C4622BC54A5800003136 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		80B2C4632BC54A5800003136 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		80E48FD82BC51F21000B67E2 /* CXYWebScript.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CXYWebScript.h; sourceTree = "<group>"; };
+		80E48FD92BC51F21000B67E2 /* CXYWebScript.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CXYWebScript.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8080C9892BC51730008408FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8080C9AA2BC5193C008408FB /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8080C9832BC51730008408FB = {
+			isa = PBXGroup;
+			children = (
+				8080C98E2BC51730008408FB /* CXYWebScript */,
+				8080C98D2BC51730008408FB /* Products */,
+				8080C9A82BC5193C008408FB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		8080C98D2BC51730008408FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8080C98C2BC51730008408FB /* CXYWebScript.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8080C98E2BC51730008408FB /* CXYWebScript */ = {
+			isa = PBXGroup;
+			children = (
+				80E48FD72BC51EF2000B67E2 /* CXYWebScript */,
+				8080C98F2BC51730008408FB /* AppDelegate.h */,
+				8080C9902BC51730008408FB /* AppDelegate.m */,
+				8080C9922BC51730008408FB /* SceneDelegate.h */,
+				8080C9932BC51730008408FB /* SceneDelegate.m */,
+				8080C9952BC51730008408FB /* ViewController.h */,
+				8080C9962BC51730008408FB /* ViewController.m */,
+				80B2C4622BC54A5800003136 /* DetailViewController.h */,
+				80B2C4632BC54A5800003136 /* DetailViewController.m */,
+				8080C9982BC51730008408FB /* Main.storyboard */,
+				8080C99B2BC51732008408FB /* Assets.xcassets */,
+				8080C9AB2BC51B12008408FB /* demo.html */,
+				8080C99D2BC51732008408FB /* LaunchScreen.storyboard */,
+				8080C9A02BC51732008408FB /* Info.plist */,
+				8080C9A12BC51732008408FB /* main.m */,
+			);
+			path = CXYWebScript;
+			sourceTree = "<group>";
+		};
+		8080C9A82BC5193C008408FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8080C9A92BC5193C008408FB /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		80E48FD72BC51EF2000B67E2 /* CXYWebScript */ = {
+			isa = PBXGroup;
+			children = (
+				80E48FD82BC51F21000B67E2 /* CXYWebScript.h */,
+				80E48FD92BC51F21000B67E2 /* CXYWebScript.m */,
+			);
+			path = CXYWebScript;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8080C98B2BC51730008408FB /* CXYWebScript */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8080C9A52BC51732008408FB /* Build configuration list for PBXNativeTarget "CXYWebScript" */;
+			buildPhases = (
+				8080C9882BC51730008408FB /* Sources */,
+				8080C9892BC51730008408FB /* Frameworks */,
+				8080C98A2BC51730008408FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CXYWebScript;
+			productName = CXYWebScriptManager;
+			productReference = 8080C98C2BC51730008408FB /* CXYWebScript.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8080C9842BC51730008408FB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1530;
+				TargetAttributes = {
+					8080C98B2BC51730008408FB = {
+						CreatedOnToolsVersion = 15.3;
+					};
+				};
+			};
+			buildConfigurationList = 8080C9872BC51730008408FB /* Build configuration list for PBXProject "CXYWebScript" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8080C9832BC51730008408FB;
+			productRefGroup = 8080C98D2BC51730008408FB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8080C98B2BC51730008408FB /* CXYWebScript */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8080C98A2BC51730008408FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8080C99C2BC51732008408FB /* Assets.xcassets in Resources */,
+				8080C9AC2BC51B12008408FB /* demo.html in Resources */,
+				8080C99F2BC51732008408FB /* Base in Resources */,
+				8080C99A2BC51730008408FB /* Base in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8080C9882BC51730008408FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				80E48FDA2BC51F21000B67E2 /* CXYWebScript.m in Sources */,
+				8080C9972BC51730008408FB /* ViewController.m in Sources */,
+				8080C9912BC51730008408FB /* AppDelegate.m in Sources */,
+				8080C9A22BC51732008408FB /* main.m in Sources */,
+				8080C9942BC51730008408FB /* SceneDelegate.m in Sources */,
+				80B2C4642BC54A5800003136 /* DetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		8080C9982BC51730008408FB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8080C9992BC51730008408FB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8080C99D2BC51732008408FB /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8080C99E2BC51732008408FB /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8080C9A32BC51732008408FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		8080C9A42BC51732008408FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8080C9A62BC51732008408FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C98SFK75FC;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CXYWebScript/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cxy.ihongren.webscript;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8080C9A72BC51732008408FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C98SFK75FC;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CXYWebScript/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cxy.ihongren.webscript;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8080C9872BC51730008408FB /* Build configuration list for PBXProject "CXYWebScript" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8080C9A32BC51732008408FB /* Debug */,
+				8080C9A42BC51732008408FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8080C9A52BC51732008408FB /* Build configuration list for PBXNativeTarget "CXYWebScript" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8080C9A62BC51732008408FB /* Debug */,
+				8080C9A72BC51732008408FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8080C9842BC51730008408FB /* Project object */;
+}
