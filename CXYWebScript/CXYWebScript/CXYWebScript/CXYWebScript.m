@@ -13,11 +13,7 @@
 @implementation NSObject (CXY)
 
 - (id)cxy_performSelector:(SEL)aSelector withObjects:(NSArray *)objects {
-    if (!aSelector || ![objects isKindOfClass:[NSArray class]]) {
-        return nil;
-    }
-    
-    if (![self respondsToSelector:aSelector]) {
+    if (!aSelector || ![self respondsToSelector:aSelector] || (objects && ![objects isKindOfClass:[NSArray class]])) {
         return nil;
     }
     
@@ -48,11 +44,9 @@
 @end
 
 
-
 @interface CXYWebScript ()
 @property (nonatomic, strong, readwrite) WKWebView *webView;
 @property (nonatomic, copy) NSString *injectName;
-
 @property (nonatomic, strong) NSMapTable *targetMap;
 @property (nonatomic, strong) NSMutableDictionary *scriptMap;
 @property (nonatomic, strong) NSMutableDictionary *blockMap;

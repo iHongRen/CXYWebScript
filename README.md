@@ -8,70 +8,14 @@ if (isAndroid) {
 }
  
 if (isiOS) {
-	  window.webkit.messageHandlers.onSayHello.postMessage('Hello');   
+    window.webkit.messageHandlers.onSayHello.postMessage('Hello');   
 }
 
 // 现在 iOS使用CXYWebScript后, H5无需引入任何库，iOS和Android统一调用：
 window.App?.onSayHello('Hello')
-```
 
-
-
-### 原理:
-
-1、让 WKWebView 注入下面的代码到 JS 环境中：
-
-```js
-window.App = new Proxy({},{
-    get: function (target, name) {
-        return function (...args) {
-            return window.prompt(name,JSON.stringify(args)); 
-        };
-    } 
-});
-```
-
-这样，当 js 调用时：
-
-```js
-window.App.onSayHello('Hello')  等价于 => window.prompt('onSayHello',['Hello']); 
-```
-
-2、而调用 `window.prompt` 会执行 WKWebView.UIDelegate 的方法：
-
-```objective-c
-- (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(nullable NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString * _Nullable result))completionHandler;
-```
-
-其中的两个参数分别对应**方法名**和**参数列表JSON数组**：
-
-```
-(NSString *)prompt => 'onSayHello'
-(nullable NSString *)defaultText => '[\'Hello\']'
-```
-
-3、对于 **target-action** 方式，根据方法名得到对应的 `SEL`，使用`NSInvocation`类，可以构造一个表示方法调用的对象，包括方法选择器、目标对象、参数和返回值。可以处理具有多个参数的方法调用
-
-```objective-c
-// self.scriptMap = {@"onSayHello": NSStringFromSelector(onSayHello:)}
-NSString *selString = self.scriptMap[prompt];  
-SEL sel = NSSelectorFromString(selString);
-NSArray *args = [self arrayWithJSON:defaultText];
-
-NSMethodSignature *signature = [self methodSignatureForSelector:aSelector];
-NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-[invocation setTarget:self];
-[invocation setSelector:aSelector];
-... 详细见源码
-```
-
-4、对于 **block** 方式，根据方法名找到对应的 block，直接执行 block 就行：
-
-```objective-c
-// self.blockMap = {@"onSayHello": CXYBlock}
-CXYBlock block = self.blockMap[prompt];
-NSArray *args = [self arrayWithJSON:defaultText];
-block(args);
+PS1: 以上 window.App 是可以自定义的，如 window.CXY
+PS2: 判断当前环境是客户端还是其他H5端，直接使用 if (window.App) 就行
 ```
 
 
@@ -82,6 +26,7 @@ block(args);
 - 支持使用 block 和 target-action 方式注册 js 方法
 - 支持原生 App 传递返回值给 H5 (限字符串类型或 nil )
 - 支持 **iOS 10+**
+- 不到 **200** 行代码
 
 
 
@@ -118,7 +63,7 @@ function onChangeTheme(theme) {
 }
 ```
 
-#### App 端 OC代码：
+#### App 端 OC代码，详细见[Demo](./CXYWebScript/CXYWebScript/ViewController.m)：
 
 ```objective-c
 #import "CXYWebScript.h"
@@ -173,4 +118,65 @@ function onChangeTheme(theme) {
 
 ```
 
+### 原理:
+
+1、让 WKWebView 注入下面的代码到 JS 环境中：
+
+```js
+window.App = new Proxy({},{
+    get: function (target, name) {
+        return function (...args) {
+            return window.prompt(name,JSON.stringify(args)); 
+        };
+    } 
+});
+
+PS: 使用 window.webkit.messageHandlers[name].postMessage(args); 亦可，只是后续实现略有不同。
+为什么选用window.prompt方式呢？ 因为它能直接同步返回值。
+```
+
+这样，当 js 调用时：
+
+```js
+window.App.onSayHello('Hello')  等价于 => window.prompt('onSayHello',['Hello']); 
+```
+
+2、而调用 `window.prompt` 会执行 WKWebView.UIDelegate 的方法：
+
+```objective-c
+- (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(nullable NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString * _Nullable result))completionHandler;
+
+completionHandler('返回值') 调用后，能同步返回值给H5端。
+```
+
+其中的两个参数分别对应**方法名**和**参数列表JSON数组**：
+
+```
+(NSString *)prompt => 'onSayHello'
+(nullable NSString *)defaultText => '[\'Hello\']'
+```
+
+3、对于 **target-action** 方式，根据方法名得到对应的 `SEL`，使用`NSInvocation`类，可以构造一个表示方法调用的对象，包括方法选择器、目标对象、参数和返回值。可以处理具有多个参数的方法调用
+
+```objective-c
+// self.scriptMap = {@"onSayHello": NSStringFromSelector(onSayHello:)}
+NSString *selString = self.scriptMap[prompt];  
+SEL sel = NSSelectorFromString(selString);
+NSArray *args = [self arrayWithJSON:defaultText];
+
+NSMethodSignature *signature = [self methodSignatureForSelector:aSelector];
+NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+[invocation setTarget:self];
+[invocation setSelector:aSelector];
+... 详细见源码
+```
+
+4、对于 **block** 方式，根据方法名找到对应的 block，直接执行 block 就行：
+
+```objective-c
+// self.blockMap = {@"onSayHello": CXYBlock}
+CXYBlock block = self.blockMap[prompt];
+NSArray *args = [self arrayWithJSON:defaultText];
+block(args);
+```
 
