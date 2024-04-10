@@ -34,7 +34,7 @@ PS2: 判断当前环境是客户端还是其他H5端，直接使用 if (window.A
 
 ### 如何使用
 
-#### H5 端 JS代码：
+#### H5 端 JS代码，详细见[Demo.html](./CXYWebScript/Demo.html)
 
 ```js
 // 调用原生App方法，并能接收App端方法的返回值
@@ -63,7 +63,7 @@ function onChangeTheme(theme) {
 }
 ```
 
-#### App 端 OC代码，详细见[Demo](./CXYWebScript/CXYWebScript/ViewController.m)：
+#### App 端 OC代码，详细见[ViewController.m](./CXYWebScript/CXYWebScript/ViewController.m)：
 
 ```objective-c
 #import "CXYWebScript.h"
