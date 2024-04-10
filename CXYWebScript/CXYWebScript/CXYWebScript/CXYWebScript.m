@@ -48,19 +48,15 @@
 
 
 @interface CXYWebScript ()
-
 @property (nonatomic, strong, readwrite) WKWebView *webView;
 @property (nonatomic, copy) NSString *injectName;
 
 @property (nonatomic, strong) NSMapTable *targetMap;
 @property (nonatomic, strong) NSMutableDictionary *scriptMap;
-
-@property (nonatomic, strong) NSMapTable *blockMap;
-
+@property (nonatomic, strong) NSMutableDictionary *blockMap;
 @end
 
 @implementation CXYWebScript
-
 
 - (instancetype)initWithWebView:(WKWebView*)webView {
     return [self initWithWebView:webView injectName:nil];
@@ -101,9 +97,9 @@
     return _targetMap;
 }
 
-- (NSMapTable *)blockMap {
+- (NSMutableDictionary *)blockMap {
     if (!_blockMap) {
-        _blockMap = [NSMapTable strongToWeakObjectsMapTable];
+        _blockMap = @{}.mutableCopy;
     }
     return _blockMap;
 }
@@ -126,13 +122,14 @@
 }
 
 - (void)removeScripts {
-    [self.targetMap removeAllObjects];
-    [self.scriptMap removeAllObjects];
+    [_blockMap removeAllObjects];
+    [_targetMap removeAllObjects];
+    [_scriptMap removeAllObjects];
     [self.webView.configuration.userContentController removeAllUserScripts];
 }
 
 - (void)addJsFunc:(NSString*)jsFunc block:(CXYBlock)block {
-    [self.blockMap setObject:block forKey:jsFunc];
+    self.blockMap[jsFunc] = block;
 }
 
 - (void)evaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^ _Nullable)(_Nullable id, NSError * _Nullable error))completionHandler {
@@ -157,7 +154,7 @@
                 defaultText:(NSString *)defaultText
           completionHandler:(void (^)(NSString * _Nullable))completionHandler {
     
-    CXYBlock block = [self.blockMap objectForKey:prompt];
+    CXYBlock block = self.blockMap[prompt];
     if (block) {
         NSArray *args = [self arrayWithJSON:defaultText];
         NSString *ret = block(args);

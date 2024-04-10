@@ -63,8 +63,10 @@
     
     // 使用 block 方式，
     // 如果 target-action 和 block 添加了相同的 jsFunc ，则只执行 block 方式的
+    __weak typeof(self) weakSelf = self;
     [self.webScript addJsFunc:@"onSayHello" block:^NSString * _Nullable(NSArray *args) {
         NSLog(@"args: %@", args);
+        NSLog(@"%@", weakSelf.webView.URL);
         return @"只支持返回字符串或nil，如何需要返回其他类型，可先将其转为JSON字符串再返回";
     }];
     
