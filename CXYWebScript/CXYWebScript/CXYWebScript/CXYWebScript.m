@@ -6,7 +6,6 @@
 //
 
 #import "CXYWebScript.h"
-#import <objc/runtime.h>
 
 @interface NSObject (CXY)
 @end
@@ -27,10 +26,13 @@
     [invocation setTarget:self];
     [invocation setSelector:aSelector];
     
-    NSInteger arguments = [signature numberOfArguments];
-    NSInteger count = MIN(arguments-2, objects.count);
+    NSInteger arguments = [signature numberOfArguments]-2;
+    NSInteger count = MIN(arguments, objects.count);
     for (NSUInteger i=0; i<count; i++) {
         id obj = objects[i];
+        if ([obj isKindOfClass:[NSNull class]]) {
+            obj = nil;
+        }
         [invocation setArgument:&obj atIndex:i+2];
     }
     [invocation invoke];
