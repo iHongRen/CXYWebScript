@@ -11,7 +11,8 @@
         button {
             font-size: 16px;
             margin-top: 20px;
-            margin-left: 20px;
+            margin-left: 10px;
+            height: 30px;
         }
 
         #text {
@@ -22,10 +23,10 @@
     </style>
     <body>
         <h1>H5与App交互</h1>
-        <button id="btn1" type="button" onclick="onBtn1Click()">能获取返回值</button>
-        <button id="btn2" type="button" onclick="onBtn2Click()">传多参数</button>
-        <button id="btn3" type="button" onclick="onBtn3Click()">直接传对象</button>
-        <button id="btn4" type="button" onclick="onBtn4Click()">打开新页面</button>
+        <button id="btn1" type="button" onclick="onBtn1Click()">调用 onSayHello('Hello') 能获取返回值</button>
+        <button id="btn2" type="button" onclick="onBtn2Click()">调用 onPreviewImages(imgs, 1) 传多参数</button>
+        <button id="btn3" type="button" onclick="onBtn3Click()">调用 onShareObj({title:...}) 直接传对象</button>
+        <button id="btn4" type="button" onclick="onBtn4Click()">调用 onJumpToPage(url) 打开新页面</button>
 
         <p id="text"></p>
         <script>
