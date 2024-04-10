@@ -12,7 +12,6 @@
 @interface ViewController ()<WKUIDelegate>
 @property (weak, nonatomic) IBOutlet WKWebView *webView;
 @property (nonatomic, strong) CXYWebScript *webScript;
-@property (nonatomic, copy) NSString *bl;
 @end
 
 @implementation ViewController

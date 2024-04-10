@@ -26,7 +26,7 @@ typedef NSString* _Nullable (^CXYBlock)(NSArray *args);
 - (void)addTarget:(id)target jsFunc:(NSString*)jsFunc ocSel:(SEL)sel;
 - (void)removeScripts;
 
-- (void)evaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^ _Nullable)(_Nullable id, NSError * _Nullable error))completionHandler;
+- (void)evaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^ _Nullable)(_Nullable id result, NSError * _Nullable error))completionHandler;
 
 - (void)runJavaScriptPrompt:(NSString *)prompt
                 defaultText:(NSString *)defaultText

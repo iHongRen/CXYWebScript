@@ -58,6 +58,7 @@
 
 @implementation CXYWebScript
 
+
 - (instancetype)initWithWebView:(WKWebView*)webView {
     return [self initWithWebView:webView injectName:nil];
 }
@@ -132,7 +133,7 @@
     self.blockMap[jsFunc] = block;
 }
 
-- (void)evaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^ _Nullable)(_Nullable id, NSError * _Nullable error))completionHandler {
+- (void)evaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^ _Nullable)(_Nullable id result, NSError * _Nullable error))completionHandler {
     [self.webView evaluateJavaScript:javaScriptString completionHandler:completionHandler];
 }
 
