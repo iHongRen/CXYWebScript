@@ -109,16 +109,16 @@
             </objects>
             <point key="canvasLocation" x="-891" y="48"/>
         </scene>
-        <!--Detail View Controller-->
+        <!--Detail Controller-->
         <scene sceneID="ihj-l5-3Xw">
             <objects>
-                <viewController storyboardIdentifier="DetailViewController" id="TEQ-5m-mMs" customClass="DetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailController" id="TEQ-5m-mMs" customClass="DetailController" customModule="CXYWebScript" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ma5-pf-cui">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Szx-0K-Z6f">
-                                <rect key="frame" x="172.66666666666666" y="59" width="47.666666666666657" height="44"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Demo-Swift" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Szx-0K-Z6f">
+                                <rect key="frame" x="147" y="59" width="99" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="7Rl-oS-tgq"/>
                                 </constraints>
@@ -126,33 +126,34 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B4s-w4-WUY">
-                                <rect key="frame" x="15" y="66" width="31" height="30"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="返回"/>
-                                <connections>
-                                    <action selector="onBack:" destination="TEQ-5m-mMs" eventType="touchUpInside" id="2om-Qp-ZvO"/>
-                                    <action selector="onBack:" destination="6nq-zk-9po" eventType="touchUpInside" id="rPA-ed-YNr"/>
-                                    <action selector="onChangeBgColor:" destination="BYZ-38-t0r" eventType="touchUpInside" id="87Y-vE-sdy"/>
-                                </connections>
-                            </button>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Dc-uq-Zk4">
+                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="eaa-o5-ImS"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="B4s-w4-WUY" firstAttribute="centerY" secondItem="Szx-0K-Z6f" secondAttribute="centerY" id="9Cx-oC-VJD"/>
+                            <constraint firstItem="eaa-o5-ImS" firstAttribute="trailing" secondItem="1Dc-uq-Zk4" secondAttribute="trailing" id="4kT-vV-eqJ"/>
+                            <constraint firstItem="eaa-o5-ImS" firstAttribute="bottom" secondItem="1Dc-uq-Zk4" secondAttribute="bottom" id="9cp-bc-uKs"/>
                             <constraint firstItem="Szx-0K-Z6f" firstAttribute="top" secondItem="eaa-o5-ImS" secondAttribute="top" id="9su-RZ-Qwk"/>
-                            <constraint firstItem="B4s-w4-WUY" firstAttribute="leading" secondItem="eaa-o5-ImS" secondAttribute="leading" constant="15" id="K29-G3-s02"/>
+                            <constraint firstItem="1Dc-uq-Zk4" firstAttribute="leading" secondItem="eaa-o5-ImS" secondAttribute="leading" id="PaR-FC-MDh"/>
                             <constraint firstItem="Szx-0K-Z6f" firstAttribute="centerX" secondItem="eaa-o5-ImS" secondAttribute="centerX" id="qfg-XC-R4o"/>
-                            <constraint firstItem="Szx-0K-Z6f" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="B4s-w4-WUY" secondAttribute="trailing" constant="8" symbolic="YES" id="uro-HM-KgE"/>
+                            <constraint firstItem="1Dc-uq-Zk4" firstAttribute="top" secondItem="Szx-0K-Z6f" secondAttribute="bottom" id="wd0-Ht-hMv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="KKA-N0-9J6"/>
+                    <connections>
+                        <outlet property="webView" destination="1Dc-uq-Zk4" id="x4Q-Pd-Fq1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qtu-4g-p8P" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="6nq-zk-9po" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-186" y="44"/>
+            <point key="canvasLocation" x="-187.02290076335876" y="43.661971830985919"/>
         </scene>
     </scenes>
     <resources>

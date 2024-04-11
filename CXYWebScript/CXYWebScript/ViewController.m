@@ -7,7 +7,7 @@
 
 #import "ViewController.h"
 #import "CXYWebScript.h"
-#import "DetailViewController.h"
+#import "CXYWebScript-Swift.h"
 
 @interface ViewController ()<WKUIDelegate>
 @property (weak, nonatomic) IBOutlet WKWebView *webView;
@@ -100,7 +100,7 @@
 
 - (void)onJumpToPage:(NSString*)url {
     // page=xxx, 你可以解析url，跳转到指定页面
-    DetailViewController *c = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailViewController"];
+    DetailController *c = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailController"];
     [self.navigationController pushViewController:c animated:YES];
 }
 

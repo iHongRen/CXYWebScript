@@ -25,7 +25,7 @@ PS2: 判断当前环境是客户端还是其他H5端，直接使用 if (window.A
 - H5 在调用原生 App 方法是时，不需要区分是 Android 还是 iOS 环境
 - 支持使用 block 和 target-action 方式注册 js 方法
 - 支持原生 App 传递返回值给 H5 (限字符串类型或 nil )
-- 支持 **iOS 10+**
+- 支持 OC 与 Swift， **iOS 10+**
 - 不到 **200** 行代码
 
 
@@ -34,7 +34,7 @@ PS2: 判断当前环境是客户端还是其他H5端，直接使用 if (window.A
 
 ### 如何使用
 
-#### H5 端 JS代码，详细见[Demo.html](./CXYWebScript/Demo.html)
+#### H5 端 JS代码，详细见 [Demo.html](./CXYWebScript/Demo.html)
 
 ```js
 // 调用原生App方法，并能接收App端方法的返回值
@@ -63,7 +63,7 @@ function onChangeTheme(theme) {
 }
 ```
 
-#### App 端 OC代码，详细见[ViewController.m](./CXYWebScript/CXYWebScript/ViewController.m)：
+#### App 端 OC代码，详细见 [ViewController.m](./CXYWebScript/CXYWebScript/ViewController.m)：
 
 ```objective-c
 #import "CXYWebScript.h"
@@ -118,6 +118,46 @@ function onChangeTheme(theme) {
 }
 
 ```
+
+
+
+#### Swift 中使用，详细见 [DetailController.swift](./CXYWebScript/CXYWebScript/DetailController.swift)
+
+```swift
+// 懒加载初始化
+private lazy var webScript: CXYWebScript = {
+    let webScript = CXYWebScript(webView: webView)
+    webScript.useUIDelegate()
+    return webScript
+}()
+
+
+webScript.addJsFunc("onSayHello") { args in
+    print(args)
+    return "只支持返回字符串或nil，如何需要返回其他类型，可先将其转为JSON字符串再返回"
+}
+
+webScript.addTarget(self, jsFunc: "onPreviewImages", ocSel: #selector(onPreviewImages(_:_:)))
+
+webScript.addTarget(self, jsFunc: "onShareObj", ocSel: #selector(onShareObject(_:)))
+
+webScript.addJsFunc("onJumpToPage") { [weak self] args in
+    self?.navigationController?.popViewController(animated: true)
+    return ""
+}
+        
+    
+@objc func onPreviewImages(_ imgs: [String], _ currentIndex: NSNumber) {
+    print(imgs)
+    print(currentIndex)
+}
+
+@objc func onShareObject(_ obj: AnyObject) {
+    print(obj)
+}
+```
+
+
 
 ### 原理:
 
