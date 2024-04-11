@@ -55,18 +55,28 @@
      */
     
     /* 添加与H5交互的方法 */
+    // 添加了相同的 jsFunc ，执行优先 block > async-block > target-action
+
+    
     // 使用 target-action 方式
     [self.webScript addTarget:self
                        jsFunc:@"onSayHello"
                         ocSel:@selector(onSayHello:)];
     
-    // 使用 block 方式，
-    // 如果 target-action 和 block 添加了相同的 jsFunc ，则只执行 block 方式的
-    __weak typeof(self) weakSelf = self;
-    [self.webScript addJsFunc:@"onSayHello" block:^NSString * _Nullable(NSArray *args) {
-        NSLog(@"args: %@", args);
-        NSLog(@"%@", weakSelf.webView.URL);
-        return @"只支持返回字符串或nil，如何需要返回其他类型，可先将其转为JSON字符串再返回";
+    // 使用 block 方式，可同步返回值
+//    __weak typeof(self) weakSelf = self;
+//    [self.webScript addJsFunc:@"onSayHello" block:^NSString * _Nullable(NSArray *args) {
+//        NSLog(@"args: %@", args);
+//        NSLog(@"%@", weakSelf.webView.URL);
+//        return @"只支持返回字符串或nil，如何需要返回其他类型，可先将其转为JSON字符串再返回";
+//    }];
+    
+    // 使用 async-block 可异步返回值，返回值类型只支持字符串或nil，其他类型，可先将其转为JSON字符串
+    // 这种方式OC是异步的，js是阻塞的
+    [self.webScript addJsFunc:@"onSayHello" asyncBlock:^(NSArray * _Nonnull args, CXYStrBlock  _Nonnull returnBlock) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            returnBlock(@"我是异步返回值，2秒后才返回");
+        });
     }];
     
     [self.webScript addTarget:self
@@ -81,6 +91,7 @@
                        jsFunc:@"onJumpToPage"
                         ocSel:@selector(onJumpToPage:)];
     
+   
 }
 
 - (NSString*)onSayHello:(NSString*)param {

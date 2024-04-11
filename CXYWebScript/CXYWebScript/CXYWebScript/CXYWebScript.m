@@ -50,6 +50,8 @@
 @property (nonatomic, strong) NSMapTable *targetMap;
 @property (nonatomic, strong) NSMutableDictionary *scriptMap;
 @property (nonatomic, strong) NSMutableDictionary *blockMap;
+@property (nonatomic, strong) NSMutableDictionary *asyncBlockMap;
+
 @end
 
 @implementation CXYWebScript
@@ -100,6 +102,13 @@
     return _blockMap;
 }
 
+- (NSMutableDictionary *)asyncBlockMap {
+    if (!_asyncBlockMap) {
+        _asyncBlockMap = @{}.mutableCopy;
+    }
+    return _asyncBlockMap;
+}
+
 - (NSString*)proxyJScript {
     return [NSString stringWithFormat:
     @"window.%@ = new Proxy({},{ \
@@ -117,6 +126,7 @@
 }
 
 - (void)removeScripts {
+    [_asyncBlockMap removeAllObjects];
     [_blockMap removeAllObjects];
     [_targetMap removeAllObjects];
     [_scriptMap removeAllObjects];
@@ -125,6 +135,10 @@
 
 - (void)addJsFunc:(NSString*)jsFunc block:(CXYBlock)block {
     self.blockMap[jsFunc] = block;
+}
+
+- (void)addJsFunc:(NSString*)jsFunc asyncBlock:(CXYAsyncBlock)block {
+    self.asyncBlockMap[jsFunc] = block;
 }
 
 - (void)evaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^ _Nullable)(_Nullable id result, NSError * _Nullable error))completionHandler {
@@ -144,34 +158,40 @@
                 defaultText:(NSString *)defaultText
           completionHandler:(void (^)(NSString * _Nullable))completionHandler {
     
-    CXYBlock block = self.blockMap[prompt];
-    if (block) {
-        NSArray *args = [self arrayWithJSON:defaultText];
+    NSArray *args = [self arrayWithJSON:defaultText];
+
+    if (_blockMap[prompt]) {
+        CXYBlock block = _blockMap[prompt];
         NSString *ret = block(args);
-        if (ret && ![ret isKindOfClass:NSString.class]) {
-            NSAssert(NO, @"只接受字符串或nil类型的返回值");
-            ret = nil;
-        }
-        if (completionHandler) {
-            completionHandler(ret);
-        }
+        [self completion:ret handler:completionHandler];
+        
+    } else if (_asyncBlockMap[prompt]) {
+        CXYAsyncBlock asyncBlock = _asyncBlockMap[prompt];
+        asyncBlock(args, ^(NSString *ret){
+            [self completion:ret handler:completionHandler];
+        });
+        
     } else {
         NSString *ret = nil;
         NSString *selString = self.scriptMap[prompt];
         NSObject *target = [self.targetMap objectForKey:prompt];
         if (selString && target) {
             SEL sel = NSSelectorFromString(selString);
-            NSArray *args = [self arrayWithJSON:defaultText];
             ret = [target cxy_performSelector:sel withObjects:args];
-            
-            if (ret && ![ret isKindOfClass:NSString.class]) {
-                NSAssert(NO, @"只接受字符串或nil类型的返回值");
-                ret = nil;
-            }
         }
-        if (completionHandler) {
-            completionHandler(ret);
-        }
+        [self completion:ret handler:completionHandler];
+    }
+}
+
+- (void)completion:(NSString*)res handler:(void (^)(NSString * _Nullable))completionHandler {
+    
+    NSString *ret = res;
+    if (ret && ![ret isKindOfClass:NSString.class]) {
+        NSAssert(NO, @"只接受字符串或nil类型的返回值");
+        ret = nil;
+    }
+    if (completionHandler) {
+        completionHandler(ret);
     }
 }
 
