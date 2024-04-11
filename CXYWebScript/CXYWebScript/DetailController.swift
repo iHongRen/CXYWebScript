@@ -21,7 +21,7 @@ class DetailController: UIViewController {
         super.viewDidLoad()
         let url = Bundle.main.url(forResource: "demo", withExtension: "html")!
         webView.load(URLRequest(url: url))
-        
+        webView.navigationDelegate = self;
         setupWebScript()
     }
     
@@ -41,12 +41,6 @@ class DetailController: UIViewController {
             return ""
         }
         
-        // 延时0.5秒，等待js环境可用
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.5) {
-            self.webScript.evaluateJavaScript("modifyBtn4Title(\"返回\")") { res, err in
-                
-            }
-        }
     }
     
     
@@ -59,4 +53,14 @@ class DetailController: UIViewController {
         print(obj)
     }
   
+}
+
+extension DetailController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        
+        // 修改第四个按钮的标题
+        self.webScript.evaluateJavaScript("modifyBtn4Title(\"返回\")") { res, err in
+            
+        }
+    }
 }
