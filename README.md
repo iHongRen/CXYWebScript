@@ -81,6 +81,7 @@ function onChangeTheme(theme) {
     
     // 使用 block 方式，
     // 如果 target-action 和 block 添加了相同的 jsFunc ，则只执行 block 方式的
+    // block 方式因为参数封装在数组里，所以参数意义不是很明确
     __weak typeof(self) weakSelf = self;
     [self.webScript addJsFunc:@"onSayHello" block:^NSString * _Nullable(NSArray *args) {
         NSLog(@"args: %@", args);

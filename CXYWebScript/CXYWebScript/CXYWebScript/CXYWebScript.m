@@ -54,7 +54,6 @@
 
 @implementation CXYWebScript
 
-
 - (instancetype)initWithWebView:(WKWebView*)webView {
     return [self initWithWebView:webView injectName:nil];
 }
@@ -112,7 +111,6 @@
     });", self.injectName];
 }
 
-
 - (void)addTarget:(id)target jsFunc:(NSString*)jsFunc ocSel:(SEL)sel {
     [self.targetMap setObject:target forKey:jsFunc];
     self.scriptMap[jsFunc] = NSStringFromSelector(sel);
@@ -133,16 +131,11 @@
     [self.webView evaluateJavaScript:javaScriptString completionHandler:completionHandler];
 }
 
-
 - (NSArray*)arrayWithJSON:(NSString*)json {
     if ([json isKindOfClass:NSString.class] && json.length>0) {
         NSData *data = [json dataUsingEncoding:NSUTF8StringEncoding];
-        NSError *err = nil;
-        NSArray *ret = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&err];
-        if (err) {
-            return @[];
-        }
-        return ret;
+        NSArray *ret = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+        return ret?:@[];
     }
     return @[];
 }
@@ -181,7 +174,6 @@
         }
     }
 }
-
 
 #pragma mark - WKUIDelegate
 - (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString * _Nullable))completionHandler {
