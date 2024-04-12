@@ -72,13 +72,13 @@
 //    }];
     
     // 使用 async-block 可异步返回值，返回值类型只支持字符串或nil，其他类型，可先将其转为JSON字符串
-    // 这种方式OC是异步的，js是阻塞的
+    // 这种方式OC是异步的，js是同步的
     [self.webScript addJsFunc:@"onSayHello" asyncBlock:^(NSArray * _Nonnull args, CXYStrBlock  _Nonnull returnBlock) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            returnBlock(@"我是异步返回值，2秒后才返回");
+            returnBlock(@"我是异步返回值，2秒后才返回"); // returnBlock 必须要执行
         });
     }];
-    
+   
     [self.webScript addTarget:self
                        jsFunc:@"onPreviewImages"
                         ocSel:@selector(onPreviewImages:currentIndex:)];

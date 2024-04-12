@@ -35,12 +35,13 @@ class DetailController: UIViewController {
             print(args)
             return "只支持返回字符串或nil，如何需要返回其他类型，可先将其转为JSON字符串再返回"
         }
-        
+
+         // async-block 方式，Swift 异步返回，js 同步接收返回数据
 //        webScript.addJsFunc("onSayHello") { args, returnBlock in
 //            print(args)
 //            DispatchQueue.main.asyncAfter(deadline: .now()+2) {
 //                // 只支持返回字符串或nil，如何需要返回其他类型，可先将其转为JSON字符串再返回
-//                returnBlock("我是异步返回值，2秒后才返回");
+//                returnBlock("我是异步返回值，2秒后才返回"); // returnBlock 必须要执行
 //            }
 //        }
         

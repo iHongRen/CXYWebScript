@@ -16,12 +16,10 @@
     if (!aSelector || ![self respondsToSelector:aSelector] || (objects && ![objects isKindOfClass:[NSArray class]])) {
         return nil;
     }
-    
     NSMethodSignature *signature = [self methodSignatureForSelector:aSelector];
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
     [invocation setTarget:self];
     [invocation setSelector:aSelector];
-    
     NSInteger arguments = [signature numberOfArguments]-2;
     NSInteger count = MIN(arguments, objects.count);
     for (NSUInteger i=0; i<count; i++) {
@@ -32,15 +30,13 @@
         [invocation setArgument:&obj atIndex:i+2];
     }
     [invocation invoke];
-    
-    if ([signature methodReturnLength]) { 
+    if ([signature methodReturnLength]) {
         __unsafe_unretained id data;
         [invocation getReturnValue:&data];
         return data;
     }
     return nil;
 }
-
 @end
 
 
@@ -51,7 +47,6 @@
 @property (nonatomic, strong) NSMutableDictionary *scriptMap;
 @property (nonatomic, strong) NSMutableDictionary *blockMap;
 @property (nonatomic, strong) NSMutableDictionary *asyncBlockMap;
-
 @end
 
 @implementation CXYWebScript
@@ -157,20 +152,16 @@
 - (void)runJavaScriptPrompt:(NSString *)prompt
                 defaultText:(NSString *)defaultText
           completionHandler:(void (^)(NSString * _Nullable))completionHandler {
-    
     NSArray *args = [self arrayWithJSON:defaultText];
-
     if (_blockMap[prompt]) {
         CXYBlock block = _blockMap[prompt];
         NSString *ret = block(args);
         [self completion:ret handler:completionHandler];
-        
     } else if (_asyncBlockMap[prompt]) {
         CXYAsyncBlock asyncBlock = _asyncBlockMap[prompt];
         asyncBlock(args, ^(NSString *ret){
             [self completion:ret handler:completionHandler];
         });
-        
     } else {
         NSString *ret = nil;
         NSString *selString = self.scriptMap[prompt];
@@ -184,7 +175,6 @@
 }
 
 - (void)completion:(NSString*)res handler:(void (^)(NSString * _Nullable))completionHandler {
-    
     NSString *ret = res;
     if (ret && ![ret isKindOfClass:NSString.class]) {
         NSAssert(NO, @"只接受字符串或nil类型的返回值");
@@ -197,8 +187,7 @@
 
 #pragma mark - WKUIDelegate
 - (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString * _Nullable))completionHandler {
-    
-    [self runJavaScriptPrompt:prompt 
+    [self runJavaScriptPrompt:prompt
                   defaultText:defaultText
             completionHandler:completionHandler];
 }

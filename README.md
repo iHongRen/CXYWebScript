@@ -1,4 +1,4 @@
-# CXYWebScript
+# [CXYWebScript](https://github.com/iHongRen/CXYWebScript)
 简化 iOS App 与 H5 交互，H5 直接调用 window.App?.onSayHello('Hello')，即可完成对原生 App  `onSayHello:` 方法的调用。如此，与 H5 在 Android 端调用一致。
 
 ```js
@@ -20,10 +20,10 @@ PS2: 判断当前环境是客户端还是其他H5端，直接使用 if (window.A
 
 
 
-### CXYWebScript 有以下特点：
+### [CXYWebScript](https://github.com/iHongRen/CXYWebScript) 有以下特点：
 
 - H5 在调用原生 App 方法是时，不需要区分是 Android 还是 iOS 环境
-- 支持使用 block 和 target-action 方式注册 js 方法
+- 支持使用 block，async-block 和 target-action 方式注册 js 方法
 - 支持原生 App 传递返回值给 H5 (限字符串类型或 nil )
 - 支持 OC 与 Swift， **iOS 10+**
 - 不到 **200** 行代码
@@ -74,6 +74,8 @@ function onChangeTheme(theme) {
     [self.webScript useUIDelegate];
 
     /* 添加与H5交互的方法 */
+    // 添加了相同的 jsFunc ，执行优先 block > async-block > target-action
+
     // 使用 target-action 方式
     [self.webScript addTarget:self
                        jsFunc:@"onSayHello"
@@ -87,6 +89,14 @@ function onChangeTheme(theme) {
         NSLog(@"args: %@", args);
         NSLog(@"%@", weakSelf.webView.URL);
         return @"只支持返回字符串或nil，如何需要返回其他类型，可先将其转为JSON字符串再返回";
+    }];
+   
+    // 使用 async-block 可异步返回值，返回值类型只支持字符串或nil，其他类型，可先将其转为JSON字符串
+    // 这种方式OC是异步的，js是同步的
+    [self.webScript addJsFunc:@"onSayHello" asyncBlock:^(NSArray * _Nonnull args, CXYStrBlock  _Nonnull returnBlock) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            returnBlock(@"我是异步返回值，2秒后才返回"); // returnBlock 必须要执行
+        });
     }];
     
     // 多参数使用
@@ -137,6 +147,14 @@ webScript.addJsFunc("onSayHello") { args in
     return "只支持返回字符串或nil，如何需要返回其他类型，可先将其转为JSON字符串再返回"
 }
 
+webScript.addJsFunc("onSayHello") { args, returnBlock in
+    print(args)
+    DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+        // 只支持返回字符串或nil，如何需要返回其他类型，可先将其转为JSON字符串再返回
+        returnBlock("我是异步返回值，2秒后才返回"); // returnBlock 必须要执行
+    }
+}
+
 webScript.addTarget(self, jsFunc: "onPreviewImages", ocSel: #selector(onPreviewImages(_:_:)))
 
 webScript.addTarget(self, jsFunc: "onShareObj", ocSel: #selector(onShareObject(_:)))
@@ -146,7 +164,7 @@ webScript.addJsFunc("onJumpToPage") { [weak self] args in
     return ""
 }
         
-    
+
 @objc func onPreviewImages(_ imgs: [String], _ currentIndex: NSNumber) {
     print(imgs)
     print(currentIndex)
@@ -197,7 +215,7 @@ completionHandler('返回值') 调用后，能同步返回值给H5端。
 (nullable NSString *)defaultText => '[\'Hello\']'
 ```
 
-3、对于 **target-action** 方式，根据方法名得到对应的 `SEL`，使用`NSInvocation`类，可以构造一个表示方法调用的对象，包括方法选择器、目标对象、参数和返回值。可以处理具有多个参数的方法调用
+3、对于 **target-action** 方式，根据方法名得到对应的 `SEL`，使用`NSInvocation`类，可以构造一个表示方法调用的对象，包括方法选择器、目标对象、参数和返回值。可以处理具有多个参数的方法调用。
 
 ```objective-c
 // self.scriptMap = {@"onSayHello": NSStringFromSelector(onSayHello:)}
@@ -212,7 +230,7 @@ NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature
 ... 详细见源码
 ```
 
-4、对于 **block** 方式，根据方法名找到对应的 block，直接执行 block 就行：
+4、对于 **block**、**async-block** 方式，根据方法名找到对应的 block，直接执行 block 就行：
 
 ```objective-c
 // self.blockMap = {@"onSayHello": CXYBlock}

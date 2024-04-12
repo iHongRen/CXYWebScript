@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^CXYStrBlock)( NSString * _Nullable string);
+typedef void(^CXYStrBlock)(NSString* _Nullable str);
 typedef void(^CXYAsyncBlock)(NSArray *args, CXYStrBlock returnBlock);
 
 typedef NSString* _Nullable (^CXYBlock)(NSArray *args);
@@ -26,7 +26,7 @@ typedef NSString* _Nullable (^CXYBlock)(NSArray *args);
 
 - (void)addJsFunc:(NSString*)jsFunc block:(CXYBlock)block;
 
-// OC是异步，js是阻塞的
+// OC是异步的，js是同步的
 - (void)addJsFunc:(NSString*)jsFunc asyncBlock:(CXYAsyncBlock)block;
 
 - (void)addTarget:(id)target jsFunc:(NSString*)jsFunc ocSel:(SEL)sel;
