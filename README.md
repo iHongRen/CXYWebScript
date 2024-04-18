@@ -276,9 +276,14 @@ window.App.onSayHello('Hello')  等价于 => window.prompt('onSayHello',\"['Hell
 2、而在 iOS H5 里调用 `window.prompt` 会执行 WKWebView.UIDelegate 的方法：
 
 ```objective-c
-- (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(nullable NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString * _Nullable result))completionHandler;
+- (void)webView:(WKWebView *)webView
+runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
+    defaultText:(nullable NSString *)defaultText
+initiatedByFrame:(WKFrameInfo *)frame
+completionHandler:(void (^)(NSString * _Nullable result))completionHandler;
 
-completionHandler('返回值') 调用后，能同步返回值给H5端。
+// 调用completionHandler后，能同步返回值给H5端。
+completionHandler('返回值') 
 ```
 
 其中的两个参数分别对应**方法名**和**参数列表JSON数组**：
