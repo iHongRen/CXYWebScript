@@ -18,6 +18,7 @@ window.App?.onSayHello('Hello')
 ```
 
 > Tip1: 以上 window.App 是可以自定义的，如 window.CXY
+>
 > Tip2: 判断当前环境是客户端还是其他H5端，可直接使用 if (window.App) 就行
 
 
@@ -119,10 +120,10 @@ function onChangeTheme(theme) {
 #### App 端 OC代码，详细见 [ViewController.m](./CXYWebScript/CXYWebScript/ViewController.m)：
 
 ```objective-c
-	#import "CXYWebScript.h"
+#import "CXYWebScript.h"
 
- - (void)setupWebScript {
-   // 初始化 CXYWebScript
+- (void)setupWebScript {
+    // 初始化 CXYWebScript
     self.webScript = [[CXYWebScript alloc] initWithWebView:self.webView];
     [self.webScript useUIDelegate];
 
@@ -133,7 +134,7 @@ function onChangeTheme(theme) {
     [self.webScript addTarget:self
                        jsFunc:@"onSayHello"
                         ocSel:@selector(onSayHello:)];
-   
+
     // 使用 block 方式，
     // 如果 target-action 和 block 添加了相同的 jsFunc ，则只执行 block 方式的
     // block 方式因为参数封装在数组里，所以参数意义不是很明确
@@ -143,7 +144,7 @@ function onChangeTheme(theme) {
         NSLog(@"%@", weakSelf.webView.URL);
         return @"只支持返回字符串或nil，如何需要返回其他类型，可先将其转为JSON字符串再返回";
     }];
-   
+
     // 使用 async-block 可异步返回值，返回值类型只支持字符串或nil，其他类型，可先将其转为JSON字符串
     // 这种方式OC是异步的，js是同步的
     [self.webScript addJsFunc:@"onSayHello" asyncBlock:^(NSArray * _Nonnull args, CXYStrBlock  _Nonnull returnBlock) {
@@ -151,12 +152,11 @@ function onChangeTheme(theme) {
             returnBlock(@"我是异步返回值，2秒后才返回"); // returnBlock 必须要执行
         });
     }];
-   
+
     // 多参数使用
     [self.webScript addTarget:self
                        jsFunc:@"onPreviewImages"
                         ocSel:@selector(onPreviewImages:currentIndex:)];
-   
 
 }
 
