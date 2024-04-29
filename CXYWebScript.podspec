@@ -25,7 +25,7 @@ Pod::Spec.new do |spec|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   spec.description  = <<-DESC
-  CXYWebScript, bridge H5 and App
+  CXYWebScript simplifies the interaction between App and H5(WKWebView). 
                    DESC
 
   spec.homepage     = "https://github.com/iHongRen/CXYWebScript"
@@ -69,7 +69,7 @@ Pod::Spec.new do |spec|
 
   #  When using multiple platforms
   spec.ios.deployment_target = "10.0"
-  spec.osx.deployment_target = "10.7"
+  spec.osx.deployment_target = "10.13"
   # spec.watchos.deployment_target = "2.0"
   # spec.tvos.deployment_target = "9.0"
   # spec.visionos.deployment_target = "1.0"
