@@ -25,6 +25,7 @@ Pod::Spec.new do |spec|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   spec.description  = <<-DESC
+  CXYWebScript, bridge H5 and App
                    DESC
 
   spec.homepage     = "https://github.com/iHongRen/CXYWebScript"
